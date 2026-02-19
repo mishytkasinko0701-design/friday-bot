@@ -502,27 +502,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-# Временно добавь эту команду в bot.py (после других команд)
-
-async def test_deepseek(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Тест DeepSeek API"""
-    await update.message.reply_text("Проверяю DeepSeek API...")
-    
-    try:
-        # Простой тестовый запрос
-        url = "https://api.deepseek.com/v1/models"
-        headers = {"Authorization": f"Bearer {DEEPSEEK_API_KEY}"}
-        
-        response = requests.get(url, headers=headers, timeout=10)
-        
-        if response.status_code == 200:
-            models = response.json()
-            await update.message.reply_text(f"✅ DeepSeek работает! Доступно {len(models.get('data', []))} моделей.")
-        else:
-            await update.message.reply_text(f"❌ Ошибка {response.status_code}: {response.text[:200]}")
-            
-    except Exception as e:
-        await update.message.reply_text(f"❌ Ошибка соединения: {str(e)}")
-
-# Добавь в main() обработчик:
-# application.add_handler(CommandHandler("test", test_deepseek))
